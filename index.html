@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Boda de Daniel & Edna</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#faf7f2] text-[#6b5e51]">
+<body class="bg-[#faf7f2] text-[#6b5e51] overflow-x-hidden">
 
-    <section class="relative h-screen flex items-center justify-center text-center text-white hero-bg">
-        <div class="px-4 z-10">
+    <section class="relative h-screen flex items-center justify-center text-center text-white hero-bg px-4">
+        <div class="z-10 w-full">
             <div class="mb-6 flex justify-center gap-4 animate-pulse">
                 <i data-lucide="heart" class="w-5 h-5 fill-white"></i>
                 <i data-lucide="heart" class="w-8 h-8 fill-white"></i>
                 <i data-lucide="heart" class="w-5 h-5 fill-white"></i>
             </div>
-            <p class="uppercase tracking-[0.4em] mb-4 text-xs md:text-sm font-light">¡Nos Casamos!</p>
+            <p class="uppercase tracking-[0.4em] mb-4 text-[10px] md:text-sm font-light">¡Nos Casamos!</p>
             <h1 class="text-6xl md:text-9xl mb-6 font-serif tracking-tighter">Daniel & Edna</h1>
             <p class="text-xl md:text-3xl font-serif italic opacity-90">15 de Mayo, 2026</p>
             
@@ -43,7 +43,6 @@
     </section>
 
     <section id="padres" class="py-24 bg-white relative overflow-hidden">
-        <i data-lucide="flower" class="absolute -top-10 -left-10 w-40 h-40 text-[#f3ece4] opacity-50 rotate-12"></i>
         <div class="container mx-auto px-4 max-w-4xl text-center relative z-10">
             <div class="flex justify-center items-center gap-4 mb-10 text-[#bc6c25]">
                 <i data-lucide="sparkles" class="w-6 h-6"></i>
@@ -71,7 +70,7 @@
     <section class="py-24 bg-[#f9f4ef] border-y border-[#f3ece4]">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                <div class="bg-white p-10 shadow-xl rounded-[32px] border border-[#f3ece4]">
+                <div class="bg-white p-10 shadow-xl rounded-[32px] border border-[#f3ece4] relative">
                     <h3 class="text-center font-serif text-2xl mb-8 text-[#8c7864] flex items-center justify-center gap-2">
                         <i data-lucide="calendar-heart" class="w-6 h-6 text-[#bc6c25]"></i> Mayo 2026
                     </h3>
@@ -82,14 +81,16 @@
                         <div class="py-2">10</div><div class="py-2">11</div><div class="py-2">12</div><div class="py-2">13</div><div class="py-2">14</div>
                         <div class="py-2 relative flex justify-center items-center text-white">
                             <span class="relative z-10 font-bold">15</span>
-                            <div class="absolute inset-0 bg-[#bc6c25] rounded-full w-9 h-9 mx-auto my-auto shadow-lg animate-pulse"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i data-lucide="heart" class="w-10 h-10 fill-[#bc6c25] text-[#bc6c25] animate-pulse"></i>
+                            </div>
                         </div>
                         <div class="py-2">16</div><div class="py-2">17</div><div class="py-2">18</div><div class="py-2">19</div><div class="py-2">20</div><div class="py-2">21</div><div class="py-2">22</div><div class="py-2">23</div><div class="py-2">24</div><div class="py-2">25</div><div class="py-2">26</div><div class="py-2">27</div><div class="py-2">28</div><div class="py-2">29</div><div class="py-2">30</div><div class="py-2">31</div>
                     </div>
                 </div>
-                <div class="text-center md:text-left">
+                <div class="text-center" id="countdown-container">
                     <h2 class="text-4xl font-serif text-[#8c7864] mb-8 italic">Contando los segundos...</h2>
-                    <div class="flex justify-center md:justify-start gap-4">
+                    <div class="flex justify-center gap-4">
                         <div class="bg-white p-4 rounded-2xl min-w-[75px] shadow-md border border-[#f3ece4]">
                             <span id="days" class="text-3xl text-[#bc6c25] font-bold block">00</span>
                             <span class="text-[10px] uppercase opacity-60">Días</span>
@@ -102,7 +103,7 @@
                             <span id="minutes" class="text-3xl text-[#bc6c25] font-bold block">00</span>
                             <span class="text-[10px] uppercase opacity-60">Min</span>
                         </div>
-                        <div class="bg-[#bc6c25] p-4 rounded-2xl min-w-[75px] shadow-md text-white">
+                        <div class="bg-[#bc6c25] p-4 rounded-2xl min-w-[75px] shadow-md text-white relative">
                             <span id="seconds" class="text-3xl font-bold block">00</span>
                             <span class="text-[10px] uppercase">Seg</span>
                         </div>
@@ -113,31 +114,30 @@
     </section>
 
     <section class="w-full h-[450px] md:h-[650px] relative overflow-hidden">
-        <img src="photo1.jpg" class="w-full h-full object-cover shadow-2xl" alt="Sesión de fotos Daniel & Edna">
+        <img src="photo1.jpg" class="w-full h-full object-cover shadow-2xl" alt="Sesión de fotos">
         <div class="absolute inset-0 bg-black/10"></div>
     </section>
 
-    <section class="py-24 bg-white relative">
-        <div class="container mx-auto px-4 text-center max-w-2xl">
-            <i data-lucide="church" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8"></i>
-            <h3 class="text-4xl font-serif text-[#8c7864] mb-4">Ceremonia Religiosa</h3>
-            <p class="text-2xl text-[#bc6c25] font-bold mb-2 tracking-widest">18:00 HRS</p>
-            <p class="text-lg italic text-stone-500 mb-8">Iglesia Catedral</p>
-            <a href="#" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl">
-                <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
-            </a>
-        </div>
-    </section>
-
-    <section class="py-24 bg-[#fdfaf7] relative border-y border-[#f3ece4]">
-        <div class="container mx-auto px-4 text-center max-w-2xl">
-            <i data-lucide="glass-water" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8"></i>
-            <h3 class="text-4xl font-serif text-[#8c7864] mb-4">Recepción Social</h3>
-            <p class="text-2xl text-[#bc6c25] font-bold mb-2 tracking-widest">20:30 HRS</p>
-            <p class="text-lg italic text-stone-500 mb-8">Jardín La Estancia</p>
-            <a href="#" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl">
-                <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
-            </a>
+    <section class="py-24 bg-white text-center px-4">
+        <div class="max-w-2xl mx-auto space-y-24">
+            <div>
+                <i data-lucide="church" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8"></i>
+                <h3 class="text-4xl font-serif text-[#8c7864] mb-4">Ceremonia Religiosa</h3>
+                <p class="text-2xl text-[#bc6c25] font-bold mb-2 tracking-widest">18:00 HRS</p>
+                <p class="text-lg italic text-stone-500 mb-8">Iglesia Catedral</p>
+                <a href="https://maps.app.goo.gl/JCPXYUhkXErvB7ws7" target="_blank" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
+                </a>
+            </div>
+            <div>
+                <i data-lucide="glass-water" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8"></i>
+                <h3 class="text-4xl font-serif text-[#8c7864] mb-4">Recepción Social</h3>
+                <p class="text-2xl text-[#bc6c25] font-bold mb-2 tracking-widest">20:30 HRS</p>
+                <p class="text-lg italic text-stone-500 mb-8">Jardín La Estancia</p>
+                <a href="https://maps.app.goo.gl/JCPXYUhkXErvB7ws7" target="_blank" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
+                </a>
+            </div>
         </div>
     </section>
 
@@ -146,101 +146,101 @@
         <div class="absolute inset-0 bg-black/10"></div>
     </section>
 
-    <section class="py-24 bg-white text-center">
-        <div class="container mx-auto px-4">
-            <i data-lucide="clapperboard" class="w-12 h-12 text-[#bc6c25] mx-auto mb-6 opacity-30"></i>
-            <h2 class="text-4xl font-serif text-[#8c7864] mb-8 italic">Código de Vestimenta</h2>
-            <div class="flex justify-center items-center gap-4 mb-8">
-                <i data-lucide="shirt" class="text-[#bc6c25] w-6 h-6"></i>
-                <div class="h-[1px] w-20 bg-[#e8d5c4]"></div>
-                <i data-lucide="user-round" class="text-[#bc6c25] w-6 h-6"></i>
-            </div>
-            <p class="uppercase tracking-[0.4em] text-[#bc6c25] text-lg font-bold mb-4">Traje Formal</p>
-            <p class="text-stone-500 italic max-w-lg mx-auto leading-relaxed">
-                "La vida no es perfecta, pero tu traje puede serlo. <br>
-                Acompáñanos luciendo tus mejores galas."
-            </p>
-        </div>
+    <section class="py-24 bg-[#fdfaf7] text-center px-4">
+        <i data-lucide="shirt" class="w-12 h-12 text-[#bc6c25] mx-auto mb-6"></i>
+        <h2 class="text-4xl font-serif text-[#8c7864] mb-8 italic">Código de Vestimenta</h2>
+        <p class="uppercase tracking-[0.4em] text-[#bc6c25] text-lg font-bold mb-4">Traje Formal</p>
+        <p class="text-stone-500 italic max-w-lg mx-auto leading-relaxed">
+            "La vida no es perfecta, pero tu traje puede serlo. <br>
+            Acompáñanos luciendo tus mejores galas."
+        </p>
     </section>
 
-    <section class="py-24 bg-[#6b5e51] text-[#faf7f2] text-center relative overflow-hidden">
-        <i data-lucide="sparkles" class="absolute -top-4 -right-4 w-32 h-32 opacity-10"></i>
-        <div class="container mx-auto px-4 max-w-2xl relative z-10">
+    <section class="py-24 bg-[#6b5e51] text-[#faf7f2] text-center relative overflow-hidden px-4 border-y border-white/10">
+        <div class="max-w-2xl mx-auto relative z-10">
             <i data-lucide="gift" class="w-12 h-12 mx-auto mb-8 text-[#bc6c25]"></i>
             <h2 class="text-4xl font-serif mb-8 italic">Sugerencia de Regalos</h2>
-            <p class="opacity-80 mb-12 font-light">Tu presencia es nuestro mayor regalo, pero si deseas obsequiarnos económicamente, aquí tienes nuestro QR para aportar a nuestro nuevo hogar.</p>
-            <div class="bg-white p-8 rounded-[40px] inline-block shadow-2xl relative border-8 border-[#f3ece4]">
-                <div class="w-48 h-48 bg-[#f9f4ef] flex items-center justify-center text-[#6b5e51] border-2 border-dashed border-[#bc6c25] rounded-2xl overflow-hidden">
-                    <img src="QR.jpeg" class="w-full h-full object-cover shadow-2xl" alt="Sesión de fotos Daniel & Edna">
+            <p class="opacity-80 mb-12 font-light">Tu presencia es nuestro mayor regalo, pero si deseas obsequiarnos económicamente, aquí tienes nuestro QR.</p>
+            <div class="bg-white p-8 rounded-[40px] inline-block shadow-2xl border-8 border-[#f3ece4]">
+                <div class="w-48 h-48 bg-white flex items-center justify-center rounded-2xl overflow-hidden shadow-inner">
+                    <img src="QR.jpeg" class="w-full h-full object-cover" alt="QR Transferencia">
                 </div>
-                <p class="text-[10px] text-[#6b5e51] mt-6 uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-                    <i data-lucide="smartphone" class="w-4 h-4"></i> Escanear para transferir
-                </p>
+                <div class="mt-6 space-y-1">
+                    <p class="text-[10px] text-[#bc6c25] font-bold uppercase tracking-[0.2em]">Cuenta de Ahorros</p>
+                    <p class="text-[9px] text-stone-400 italic font-serif">Para nuestro nidito de amor</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="rsvp" class="py-24 bg-white relative">
-        <div class="container mx-auto px-4 max-w-xl">
-            <div class="text-center mb-16 space-y-4">
-                <i data-lucide="mail-check" class="w-10 h-10 text-[#bc6c25] mx-auto opacity-50"></i>
+    <section id="rsvp" class="py-24 bg-white relative px-4">
+        <div class="container mx-auto max-w-xl">
+            <div class="text-center mb-16">
+                <i data-lucide="mail-check" class="w-10 h-10 text-[#bc6c25] mx-auto mb-4 opacity-50"></i>
                 <h2 class="text-4xl font-serif text-[#8c7864]">Confirmar Asistencia</h2>
-                <p class="text-stone-400 italic">Nos encantaría contar contigo en este día tan especial.</p>
             </div>
             <form id="rsvpForm" class="space-y-8">
-                <div class="relative">
-                    <i data-lucide="user" class="absolute left-0 top-4 w-5 h-5 text-[#bc6c25]"></i>
-                    <input type="text" required class="w-full border-b border-[#e8d5c4] py-4 pl-8 focus:outline-none focus:border-[#bc6c25] bg-transparent" placeholder="Tu nombre completo">
+                <div>
+                    <input type="text" id="guestName" required class="w-full border-b border-[#e8d5c4] py-4 focus:outline-none focus:border-[#bc6c25] bg-transparent text-center" placeholder="Tu nombre completo">
                 </div>
-                <div class="relative">
-                    <i data-lucide="message-square" class="absolute left-0 top-4 w-5 h-5 text-[#bc6c25]"></i>
-                    <textarea rows="2" class="w-full border-b border-[#e8d5c4] py-4 pl-8 focus:outline-none focus:border-[#bc6c25] bg-transparent" placeholder="Déjanos un mensaje o comentario..."></textarea>
+                <div>
+                    <textarea rows="2" id="guestMessage" required minlength="10" class="w-full border-b border-[#e8d5c4] py-4 focus:outline-none focus:border-[#bc6c25] bg-transparent text-center" placeholder="Mensaje... (mínimo 10 caracteres)"></textarea>
                 </div>
-                <div class="text-center pt-8">
-                    <button type="submit" class="bg-[#bc6c25] text-white px-20 py-5 rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-[0.4em] shadow-xl">Confirmar</button>
+                <div class="text-center">
+                    <button type="submit" class="bg-[#bc6c25] text-white px-20 py-5 rounded-full text-[10px] tracking-[0.4em] shadow-xl hover:scale-105 transition-transform uppercase font-bold">Confirmar por WhatsApp</button>
                 </div>
             </form>
-            <div id="successMessage" class="hidden text-center p-12 bg-[#fdfaf7] text-[#a67c52] rounded-[40px] mt-10 font-serif italic border border-[#f3ece4]">
-                ¡Gracias! Tu confirmación ha sido recibida con mucho cariño.
+            <div id="successMessage" class="hidden text-center p-12 bg-[#fdfaf7] text-[#bc6c25] rounded-[40px] font-serif italic border border-[#f3ece4]">
+                ¡Gracias! Redirigiendo a WhatsApp...
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-[#f9f4ef] border-t border-[#f3ece4]">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl mb-16 font-serif italic text-[#8c7864] flex items-center justify-center gap-4">
-                 <i data-lucide="camera" class="w-8 h-8 opacity-40"></i> Nosotros <i data-lucide="heart" class="w-8 h-8 fill-[#bc6c25] text-[#bc6c25]"></i>
+    <section class="py-24 bg-[#f9f4ef] border-t border-[#f3ece4] overflow-hidden px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-serif italic text-[#8c7864] flex items-center justify-center gap-4 mb-4">
+                 Nosotros <i data-lucide="heart" class="w-8 h-8 fill-[#bc6c25] text-[#bc6c25]"></i>
             </h2>
-            <div class="relative max-w-4xl mx-auto h-[550px] md:h-[700px] rounded-[40px] shadow-2xl overflow-hidden ring-8 ring-white">
+            
+            <div class="max-w-2xl mx-auto mb-16">
+                <p class="text-stone-500 font-serif italic text-lg md:text-xl leading-relaxed">
+                    "Este es el comienzo del capítulo más sublime e importante de nuestras vidas. Tras nueve años colmados de amor, complicidad y dulzura, hemos decidido consolidar nuestro camino en un solo ser a través del sagrado vínculo del matrimonio."
+                </p>
+                <div class="mt-4 flex justify-center opacity-30">
+                    <div class="h-[1px] w-12 bg-[#bc6c25]"></div>
+                </div>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto h-[500px] md:h-[700px] rounded-[40px] shadow-2xl overflow-hidden ring-8 ring-white">
                 <div class="carousel-item active absolute inset-0"><img src="carrusel1.jpg" class="w-full h-full object-cover"></div>
                 <div class="carousel-item absolute inset-0"><img src="carrusel2.jpg" class="w-full h-full object-cover"></div>
                 <div class="carousel-item absolute inset-0"><img src="carrusel3.jpg" class="w-full h-full object-cover"></div>
                 <div class="carousel-item absolute inset-0"><img src="carrusel4.jpg" class="w-full h-full object-cover"></div>
-                <div class="carousel-item absolute inset-0"><img src="carrusel5.jpg" class="w-full h-full object-cover"></div>
-                <div class="carousel-item absolute inset-0"><img src="carrusel6.jpg" class="w-full h-full object-cover"></div>
-                <button onclick="changeSlide(-1)" class="absolute left-6 top-1/2 bg-white/50 p-4 rounded-full text-[#6b5e51] backdrop-blur-md">
+                
+                <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20">
                     <i data-lucide="chevron-left"></i>
                 </button>
-                <button onclick="changeSlide(1)" class="absolute right-6 top-1/2 bg-white/50 p-4 rounded-full text-[#6b5e51] backdrop-blur-md">
+                <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20">
                     <i data-lucide="chevron-right"></i>
                 </button>
             </div>
         </div>
     </section>
 
-    <footer class="py-24 bg-white text-center relative border-t border-[#f3ece4]">
-        <div class="container mx-auto px-4">
-            <i data-lucide="heart-handshake" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8 opacity-50"></i>
+    <footer class="py-24 bg-white text-center relative border-t border-[#f3ece4] px-4">
+        <div class="container mx-auto">
             <h2 class="text-5xl font-serif text-[#bc6c25] mb-6 italic">¡No faltes!</h2>
             <p class="text-[#8c7864] text-xl font-light tracking-widest mb-10">Tu presencia hará este día perfecto.</p>
-            <div class="flex justify-center gap-3 mb-10 text-[#e8d5c4]">
-                <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
-            </div>
             <p class="text-[#6b5e51] font-serif text-4xl mb-2">Daniel & Edna</p>
             <p class="text-[#bc6c25] text-[11px] tracking-[0.5em] uppercase font-bold opacity-70">15 de Mayo • 2026</p>
-            <p class="text-[9px] uppercase tracking-[0.3em] mt-16 opacity-30">Desarrollado con amor por el Novio</p>
+            <div class="mt-20 flex flex-col items-center justify-center space-y-2">
+                <div class="geek-footer">
+                    <span class="text-stone-400">&lt;Body&gt;</span>
+                    <span class="geek-text">Diseñado y programado por el Novio</span>
+                    <span class="terminal-cursor"></span>
+                    <span class="text-stone-400">&lt;/Body&gt;</span>
+                </div>
+            </div>
         </div>
     </footer>
 
