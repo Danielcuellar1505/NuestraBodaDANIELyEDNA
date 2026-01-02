@@ -46,6 +46,24 @@ h1, h2, h3, .font-serif {
     100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
 }
 
+/* Estilo de error para validación */
+.border-error {
+    border-color: #ef4444 !important; /* Rojo intenso */
+    border-width: 2px !important;
+}
+
+#instructionText.text-error {
+    color: #ef4444;
+    font-weight: bold;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
 /* Footer Geek */
 .geek-footer {
     font-family: 'Fira Code', 'Courier New', monospace;

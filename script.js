@@ -51,26 +51,67 @@ musicToggle.addEventListener('click', () => {
     else { music.pause(); playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
 });
 
-// --- 4) RSVP Form con Redirección Completa ---
+// --- 4) RSVP Form con Validación Visual y WhatsApp ---
 const rsvpForm = document.getElementById('rsvpForm');
-const successMessage = document.getElementById('successMessage');
+const guestName = document.getElementById('guestName');
+const guestMessage = document.getElementById('guestMessage');
+const instructionText = document.getElementById('instructionText');
+const statusMessage = document.getElementById('statusMessage');
 
 rsvpForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('guestName').value.trim();
-    const message = document.getElementById('guestMessage').value.trim();
+    
+    let hasError = false;
+    const nameValue = guestName.value.trim();
+    const messageValue = guestMessage.value.trim();
     const phoneNumber = "59171147221";
 
-    if(name === "" || message === "") return alert("Por favor, completa todos los campos.");
-    if(message.length < 10) return alert("El mensaje debe tener al menos 10 caracteres.");
+    // Reiniciar estilos
+    guestName.classList.remove('border-error');
+    guestMessage.classList.remove('border-error');
+    instructionText.classList.remove('text-error');
 
-    // Formateo del mensaje final
+    // Validación de Nombre
+    if (nameValue === "") {
+        guestName.classList.add('border-error');
+        hasError = true;
+    }
+
+    // Validación de Mensaje (Mínimo 10 caracteres)
+    if (messageValue.length < 10) {
+        guestMessage.classList.add('border-error');
+        hasError = true;
+    }
+
+    if (hasError) {
+        instructionText.innerText = "¡Atención! Revisa los campos marcados en rojo.";
+        instructionText.classList.add('text-error');
+        return;
+    }
+
+    // Si todo está bien, procedemos al envío
     const confirmationText = "¡Confirmo mi asistencia!";
-    // %0A es el salto de línea en URLs
-    const finalMessage = `*${name}*%0A%0A${message}%0A%0A${confirmationText}`;
+    const finalMessage = `*${nameValue}*%0A%0A${messageValue}%0A%0A${confirmationText}`;
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${finalMessage}`;
 
+    // Estilo visual de éxito antes de redirigir
     rsvpForm.style.display = 'none';
-    successMessage.classList.remove('hidden');
-    setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 1500);
+    instructionText.style.display = 'none';
+    
+    statusMessage.innerText = "¡Gracias! Tu información es correcta. Redirigiendo a WhatsApp...";
+    statusMessage.classList.remove('hidden');
+    statusMessage.classList.add('bg-[#fdfaf7]', 'text-[#bc6c25]', 'border-[#f3ece4]');
+
+    setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+    }, 1500);
+});
+
+// Opcional: Quitar el error mientras el usuario escribe
+[guestName, guestMessage].forEach(input => {
+    input.addEventListener('input', () => {
+        input.classList.remove('border-error');
+        instructionText.classList.remove('text-error');
+        instructionText.innerText = "Por favor, completa estos dos campos para habilitar el envío de tu confirmación.";
+    });
 });
