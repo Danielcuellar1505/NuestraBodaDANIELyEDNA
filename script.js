@@ -1,3 +1,21 @@
+// --- Lógica de Pases Personalizados (n = nombre, p = pases) ---
+const urlParams = new URLSearchParams(window.location.search);
+const guestNameParam = urlParams.get('n'); // Ejemplo: n=Juanito%20y%20Familia
+const passCountParam = urlParams.get('p'); // Ejemplo: p=4
+
+if (guestNameParam || passCountParam) {
+    const container = document.getElementById('pasesContainer');
+    const greeting = document.getElementById('guestGreeting');
+    const count = document.getElementById('passCount');
+
+    if (container) {
+        container.classList.remove('hidden');
+        // Convertimos a mayúsculas para mantener el estilo formal solicitado (PARA: JUANITO...)
+        if (guestNameParam) greeting.innerText = guestNameParam.toUpperCase();
+        if (passCountParam) count.innerText = passCountParam;
+    }
+}
+
 // --- 1) Contador con Corazones ---
 const weddingDate = new Date("May 15, 2026 18:00:00").getTime();
 const secondsSpan = document.getElementById("seconds");
@@ -51,67 +69,57 @@ musicToggle.addEventListener('click', () => {
     else { music.pause(); playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
 });
 
-// --- 4) RSVP Form con Validación Visual y WhatsApp ---
+// --- 4) RSVP Form Simplificado (Solo Mensaje) ---
 const rsvpForm = document.getElementById('rsvpForm');
-const guestName = document.getElementById('guestName');
-const guestMessage = document.getElementById('guestMessage');
+const guestMessageInput = document.getElementById('guestMessage');
 const instructionText = document.getElementById('instructionText');
 const statusMessage = document.getElementById('statusMessage');
 
 rsvpForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    let hasError = false;
-    const nameValue = guestName.value.trim();
-    const messageValue = guestMessage.value.trim();
+    const messageValue = guestMessageInput.value.trim();
     const phoneNumber = "59171147221";
 
-    // Reiniciar estilos
-    guestName.classList.remove('border-error');
-    guestMessage.classList.remove('border-error');
+    // Reiniciar estilos de error
+    guestMessageInput.classList.remove('border-error');
     instructionText.classList.remove('text-error');
 
-    // Validación de Nombre
-    if (nameValue === "") {
-        guestName.classList.add('border-error');
-        hasError = true;
-    }
-
-    // Validación de Mensaje (Mínimo 10 caracteres)
+    // Validación: Solo el mensaje es obligatorio ahora (mínimo 10 caracteres)
     if (messageValue.length < 10) {
-        guestMessage.classList.add('border-error');
-        hasError = true;
-    }
-
-    if (hasError) {
-        instructionText.innerText = "¡Atención! Revisa los campos marcados en rojo.";
+        guestMessageInput.classList.add('border-error');
+        instructionText.innerText = "¡Atención! El mensaje es muy corto (mínimo 10 letras).";
         instructionText.classList.add('text-error');
         return;
     }
 
-    // Si todo está bien, procedemos al envío
+    // Configuración del mensaje formal para WhatsApp
     const confirmationText = "¡Confirmo mi asistencia!";
-    const finalMessage = `*${nameValue}*%0A%0A${messageValue}%0A%0A${confirmationText}`;
+    
+    // Si no hay nombre en la URL por error, usamos "Invitado Especial"
+    const destName = guestNameParam ? guestNameParam.toUpperCase() : "INVITADO ESPECIAL";
+    const destInfo = `*Para:* ${destName}%0A`;
+    const pasesInfo = passCountParam ? `*Cupos:* ${passCountParam}%0A` : "";
+    
+    // Formato final profesional
+    const finalMessage = `*CONFIRMACIÓN DE ASISTENCIA*%0A${destInfo}${pasesInfo}%0A${messageValue}%0A%0A${confirmationText}`;
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${finalMessage}`;
 
-    // Estilo visual de éxito antes de redirigir
+    // Interfaz de éxito
     rsvpForm.style.display = 'none';
     instructionText.style.display = 'none';
-    
-    statusMessage.innerText = "¡Gracias! Tu información es correcta. Redirigiendo a WhatsApp...";
+    statusMessage.innerText = "¡Gracias! Redirigiendo a WhatsApp...";
     statusMessage.classList.remove('hidden');
     statusMessage.classList.add('bg-[#fdfaf7]', 'text-[#bc6c25]', 'border-[#f3ece4]');
 
-    setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
+    setTimeout(() => { 
+        window.open(whatsappUrl, '_blank'); 
     }, 1500);
 });
 
-// Opcional: Quitar el error mientras el usuario escribe
-[guestName, guestMessage].forEach(input => {
-    input.addEventListener('input', () => {
-        input.classList.remove('border-error');
-        instructionText.classList.remove('text-error');
-        instructionText.innerText = "Por favor, completa estos dos campos para habilitar el envío de tu confirmación.";
-    });
+// Limpiar error al escribir
+guestMessageInput.addEventListener('input', () => {
+    guestMessageInput.classList.remove('border-error');
+    instructionText.classList.remove('text-error');
+    instructionText.innerText = "Por favor, completa este campo para habilitar el envío de tu confirmación.";
 });

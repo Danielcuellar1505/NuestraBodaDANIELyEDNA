@@ -100,3 +100,11 @@ input:invalid, textarea:invalid {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #faf7f2; }
 ::-webkit-scrollbar-thumb { background: #bc6c25; border-radius: 10px; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#pasesContainer {
+    animation: fadeIn 1s ease-out;
+}

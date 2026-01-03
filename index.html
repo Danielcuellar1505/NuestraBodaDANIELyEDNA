@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Boda de Daniel & Edna</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
@@ -70,8 +71,8 @@
     <section class="py-24 bg-[#f9f4ef] border-y border-[#f3ece4]">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                <div class="bg-white p-10 shadow-xl rounded-[32px] border border-[#f3ece4] relative">
-                    <h3 class="text-center font-serif text-2xl mb-8 text-[#8c7864] flex items-center justify-center gap-2">
+                <div class="bg-white p-10 shadow-xl rounded-[32px] border border-[#f3ece4] relative text-center">
+                    <h3 class="font-serif text-2xl mb-8 text-[#8c7864] flex items-center justify-center gap-2">
                         <i data-lucide="calendar-heart" class="w-6 h-6 text-[#bc6c25]"></i> Mayo 2026
                     </h3>
                     <div class="grid grid-cols-7 gap-3 text-center text-xs">
@@ -129,14 +130,35 @@
                     <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
                 </a>
             </div>
+            
             <div>
                 <i data-lucide="glass-water" class="w-12 h-12 text-[#bc6c25] mx-auto mb-8"></i>
                 <h3 class="text-4xl font-serif text-[#8c7864] mb-4">Recepción Social</h3>
                 <p class="text-2xl text-[#bc6c25] font-bold mb-2 tracking-widest">20:30 HRS</p>
                 <p class="text-lg italic text-stone-500 mb-8">Jardín La Estancia</p>
-                <a href="https://maps.app.goo.gl/JCPXYUhkXErvB7ws7" target="_blank" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl">
+                <a href="https://maps.app.goo.gl/JCPXYUhkXErvB7ws7" target="_blank" class="inline-flex items-center gap-2 px-10 py-4 bg-[#bc6c25] text-white rounded-full hover:bg-[#8c7864] transition-all uppercase text-[10px] tracking-widest shadow-xl mb-12">
                     <i data-lucide="map-pin" class="w-4 h-4"></i> Ver Mapa
                 </a>
+
+                <div id="pasesContainer" class="hidden mt-16 p-8 bg-[#f9f4ef] rounded-[40px] border-2 border-dashed border-[#e8d5c4] max-w-sm mx-auto shadow-inner relative overflow-hidden">
+                    <i data-lucide="sparkles" class="absolute top-4 right-4 text-[#bc6c25]/20 w-8 h-8"></i>
+                    
+                    <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 mb-2">Invitación formal</p>
+                    <h4 class="font-serif italic text-2xl text-[#8c7864] mb-6 leading-tight">
+                        PARA: <span id="guestGreeting" class="uppercase not-italic font-bold tracking-tighter">INVITADO</span>
+                    </h4>
+                    
+                    <div class="h-[1px] w-12 bg-[#bc6c25]/30 mx-auto mb-6"></div>
+
+                    <div class="flex flex-col items-center justify-center space-y-2">
+                        <p class="text-[9px] uppercase tracking-widest font-bold opacity-60 text-stone-500">Cupos reservados</p>
+                        <div class="flex items-center gap-3 bg-white px-8 py-4 rounded-2xl shadow-md border border-[#f3ece4]">
+                            <i data-lucide="ticket" class="w-5 h-5 text-[#bc6c25]"></i>
+                            <span id="passCount" class="text-5xl font-bold text-[#bc6c25]">0</span>
+                        </div>
+                        <p class="text-[10px] italic font-serif text-[#8c7864] pt-2">Personas</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -165,76 +187,60 @@
                 <div class="w-48 h-48 bg-white flex items-center justify-center rounded-2xl overflow-hidden shadow-inner">
                     <img src="QR.jpeg" class="w-full h-full object-cover" alt="QR Transferencia">
                 </div>
-                <div class="mt-6 space-y-1">
+                <div class="mt-6 space-y-1 text-[#6b5e51]">
                     <p class="text-[10px] text-[#bc6c25] font-bold uppercase tracking-[0.2em]">Cuenta de Ahorros</p>
-                    <p class="text-[9px] text-stone-400 italic font-serif">Para nuestro nidito de amor</p>
+                    <p class="text-[9px] italic font-serif opacity-60">Para nuestro nidito de amor</p>
                 </div>
             </div>
         </div>
     </section>
 
-   <section id="rsvp" class="py-24 bg-white relative px-4">
-    <div class="container mx-auto max-w-xl">
-        <div class="text-center mb-10">
-            <i data-lucide="mail-check" class="w-10 h-10 text-[#bc6c25] mx-auto mb-4 opacity-50"></i>
-            <h2 class="text-4xl font-serif text-[#8c7864]">Confirmar Asistencia</h2>
-            <p id="instructionText" class="mt-4 text-stone-400 italic text-sm">
-                Por favor, completa estos dos campos para habilitar el envío de tu confirmación.
+    <section id="rsvp" class="py-24 bg-white relative px-4">
+        <div class="container mx-auto max-w-xl">
+            <div class="text-center mb-10">
+                <i data-lucide="mail-check" class="w-10 h-10 text-[#bc6c25] mx-auto mb-4 opacity-50"></i>
+                <h2 class="text-4xl font-serif text-[#8c7864]">Confirmar Asistencia</h2>
+                <p id="instructionText" class="mt-4 text-stone-400 italic text-sm">
+                    Por favor, completa estos dos campos para habilitar el envío de tu confirmación.
+                </p>
+            </div>
+            
+            <form id="rsvpForm" class="space-y-8" novalidate>
+                <div class="relative">
+                    <textarea rows="3" id="guestMessage" 
+                        class="w-full border-b border-[#e8d5c4] py-4 focus:outline-none bg-transparent text-center transition-colors duration-300" 
+                        placeholder="Déjanos un mensaje de buenos deseos..."></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="submitBtn" 
+                        class="bg-[#bc6c25] text-white px-10 py-5 rounded-full text-[10px] tracking-[0.4em] shadow-xl uppercase font-bold hover:scale-105 transition-all flex items-center justify-center gap-3 mx-auto">
+                       <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Confirmar por WhatsApp
+                    </button>
+                </div>
+            </form>
+
+            <div id="statusMessage" class="hidden mt-8 text-center p-6 rounded-[20px] font-serif italic border"></div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#f9f4ef] border-t border-[#f3ece4] overflow-hidden px-4 text-center">
+        <h2 class="text-4xl font-serif italic text-[#8c7864] flex items-center justify-center gap-4 mb-4">
+             Nosotros <i data-lucide="heart" class="w-8 h-8 fill-[#bc6c25] text-[#bc6c25]"></i>
+        </h2>
+        <div class="max-w-2xl mx-auto mb-16">
+            <p class="text-stone-500 font-serif italic text-lg md:text-xl leading-relaxed">
+                "Este es el comienzo del capítulo más sublime e importante de nuestras vidas. Tras nueve años colmados de amor, complicidad y dulzura, hemos decidido consolidar nuestro camino en un solo ser a través del sagrado vínculo del matrimonio."
             </p>
         </div>
-        
-        <form id="rsvpForm" class="space-y-8" novalidate> <div class="relative">
-                <input type="text" id="guestName" 
-                    class="w-full border-b border-[#e8d5c4] py-4 focus:outline-none bg-transparent text-center transition-colors duration-300" 
-                    placeholder="Tu nombre completo">
-            </div>
-            
-            <div class="relative">
-                <textarea rows="2" id="guestMessage" 
-                    class="w-full border-b border-[#e8d5c4] py-4 focus:outline-none bg-transparent text-center transition-colors duration-300" 
-                    placeholder="Déjanos un mensaje..."></textarea>
-            </div>
-
-            <div class="text-center">
-                <button type="submit" id="submitBtn" 
-                    class="bg-[#bc6c25] text-white px-20 py-5 rounded-full text-[10px] tracking-[0.4em] shadow-xl uppercase font-bold hover:scale-105 transition-transform">
-                    Enviar Confirmacion
-                </button>
-            </div>
-        </form>
-
-        <div id="statusMessage" class="hidden mt-8 text-center p-6 rounded-[20px] font-serif italic border"></div>
-    </div>
-</section>
-
-    <section class="py-24 bg-[#f9f4ef] border-t border-[#f3ece4] overflow-hidden px-4">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-serif italic text-[#8c7864] flex items-center justify-center gap-4 mb-4">
-                 Nosotros <i data-lucide="heart" class="w-8 h-8 fill-[#bc6c25] text-[#bc6c25]"></i>
-            </h2>
-            
-            <div class="max-w-2xl mx-auto mb-16">
-                <p class="text-stone-500 font-serif italic text-lg md:text-xl leading-relaxed">
-                    "Este es el comienzo del capítulo más sublime e importante de nuestras vidas. Tras nueve años colmados de amor, complicidad y dulzura, hemos decidido consolidar nuestro camino en un solo ser a través del sagrado vínculo del matrimonio."
-                </p>
-                <div class="mt-4 flex justify-center opacity-30">
-                    <div class="h-[1px] w-12 bg-[#bc6c25]"></div>
-                </div>
-            </div>
-
-            <div class="relative max-w-4xl mx-auto h-[500px] md:h-[700px] rounded-[40px] shadow-2xl overflow-hidden ring-8 ring-white">
-                <div class="carousel-item active absolute inset-0"><img src="carrusel1.jpg" class="w-full h-full object-cover"></div>
-                <div class="carousel-item absolute inset-0"><img src="carrusel2.jpg" class="w-full h-full object-cover"></div>
-                <div class="carousel-item absolute inset-0"><img src="carrusel3.jpg" class="w-full h-full object-cover"></div>
-                <div class="carousel-item absolute inset-0"><img src="carrusel4.jpg" class="w-full h-full object-cover"></div>
-                
-                <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-            </div>
+        <div class="relative max-w-4xl mx-auto h-[500px] md:h-[700px] rounded-[40px] shadow-2xl overflow-hidden ring-8 ring-white">
+            <div class="carousel-item active absolute inset-0"><img src="carrusel1.jpg" class="w-full h-full object-cover"></div>
+            <div class="carousel-item absolute inset-0"><img src="carrusel2.jpg" class="w-full h-full object-cover"></div>
+            <div class="carousel-item absolute inset-0"><img src="carrusel3.jpg" class="w-full h-full object-cover"></div>
+            <div class="carousel-item absolute inset-0"><img src="carrusel4.jpg" class="w-full h-full object-cover"></div>
+            <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20"><i data-lucide="chevron-left"></i></button>
+            <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 p-3 rounded-full backdrop-blur-md z-20"><i data-lucide="chevron-right"></i></button>
         </div>
     </section>
 
@@ -244,20 +250,19 @@
             <p class="text-[#8c7864] text-xl font-light tracking-widest mb-10">Tu presencia hará este día perfecto.</p>
             <p class="text-[#6b5e51] font-serif text-4xl mb-2">Daniel & Edna</p>
             <p class="text-[#bc6c25] text-[11px] tracking-[0.5em] uppercase font-bold opacity-70">15 de Mayo • 2026</p>
-            <div class="mt-20 flex flex-col items-center justify-center space-y-2">
+            
+            <div class="mt-20 flex justify-center">
                 <div class="geek-footer">
-                    <span class="text-stone-400">&lt;Body&gt;</span>
+                    <span class="text-stone-300">&lt;body&gt;</span>
                     <span class="geek-text">Diseñado y programado por el Novio</span>
                     <span class="terminal-cursor"></span>
-                    <span class="text-stone-400">&lt;/Body&gt;</span>
+                    <span class="text-stone-300">&lt;/body&gt;</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        lucide.createIcons();
-    </script>
+    <script>lucide.createIcons();</script>
     <script src="script.js"></script>
 </body>
 </html>
