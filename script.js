@@ -1,21 +1,32 @@
-// --- Lógica de Pases Personalizados (n = nombre, p = pases) ---
 const urlParams = new URLSearchParams(window.location.search);
-const guestNameParam = urlParams.get('n'); // Ejemplo: n=Juanito%20y%20Familia
-const passCountParam = urlParams.get('p'); // Ejemplo: p=4
+const invitadoId = urlParams.get('q'); 
+let nombreDB = "INVITADO ESPECIAL";
+let pasesDB = 0;
 
-if (guestNameParam || passCountParam) {
-    const container = document.getElementById('pasesContainer');
-    const greeting = document.getElementById('guestGreeting');
-    const count = document.getElementById('passCount');
+if (invitadoId) {
+    const docRef = window.db.collection("invitados").doc(invitadoId);
 
-    if (container) {
-        container.classList.remove('hidden');
-        // Convertimos a mayúsculas para mantener el estilo formal solicitado (PARA: JUANITO...)
-        if (guestNameParam) greeting.innerText = guestNameParam.toUpperCase();
-        if (passCountParam) count.innerText = passCountParam;
-    }
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            nombreDB = data.nombre.toUpperCase();
+            pasesDB = data.pases;
+            const container = document.getElementById('pasesContainer');
+            const greeting = document.getElementById('guestGreeting');
+            const count = document.getElementById('passCount');
+
+            if (container) {
+                container.classList.remove('hidden');
+                greeting.innerText = nombreDB;
+                count.innerText = pasesDB;
+            }
+        } else {
+            console.error("No se encontró el Document ID.");
+        }
+    }).catch((error) => {
+        console.error("Error al obtener datos:", error);
+    });
 }
-
 // --- 1) Contador con Corazones ---
 const weddingDate = new Date("May 15, 2026 18:00:00").getTime();
 const secondsSpan = document.getElementById("seconds");
@@ -69,7 +80,7 @@ musicToggle.addEventListener('click', () => {
     else { music.pause(); playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
 });
 
-// --- 4) RSVP Form Simplificado (Solo Mensaje) ---
+// --- 4) RSVP Form ---
 const rsvpForm = document.getElementById('rsvpForm');
 const guestMessageInput = document.getElementById('guestMessage');
 const instructionText = document.getElementById('instructionText');
@@ -81,11 +92,9 @@ rsvpForm.addEventListener('submit', (e) => {
     const messageValue = guestMessageInput.value.trim();
     const phoneNumber = "59171147221";
 
-    // Reiniciar estilos de error
     guestMessageInput.classList.remove('border-error');
     instructionText.classList.remove('text-error');
 
-    // Validación: Solo el mensaje es obligatorio ahora (mínimo 10 caracteres)
     if (messageValue.length < 10) {
         guestMessageInput.classList.add('border-error');
         instructionText.innerText = "¡Atención! El mensaje es muy corto (mínimo 10 letras).";
@@ -93,19 +102,14 @@ rsvpForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // Configuración del mensaje formal para WhatsApp
     const confirmationText = "¡Confirmo mi asistencia!";
     
-    // Si no hay nombre en la URL por error, usamos "Invitado Especial"
-    const destName = guestNameParam ? guestNameParam.toUpperCase() : "INVITADO ESPECIAL";
-    const destInfo = `*Para:* ${destName}%0A`;
-    const pasesInfo = passCountParam ? `*Cupos:* ${passCountParam}%0A` : "";
+    const destInfo = `*Para:* ${nombreDB}%0A`;
+    const pasesInfo = pasesDB > 0 ? `*Cupos:* ${pasesDB}%0A` : "";
     
-    // Formato final profesional
     const finalMessage = `*CONFIRMACIÓN DE ASISTENCIA*%0A${destInfo}${pasesInfo}%0A${messageValue}%0A%0A${confirmationText}`;
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${finalMessage}`;
 
-    // Interfaz de éxito
     rsvpForm.style.display = 'none';
     instructionText.style.display = 'none';
     statusMessage.innerText = "¡Gracias! Redirigiendo a WhatsApp...";
@@ -117,7 +121,6 @@ rsvpForm.addEventListener('submit', (e) => {
     }, 1500);
 });
 
-// Limpiar error al escribir
 guestMessageInput.addEventListener('input', () => {
     guestMessageInput.classList.remove('border-error');
     instructionText.classList.remove('text-error');
