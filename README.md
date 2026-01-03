@@ -1,36 +1,41 @@
 # 💌 Invitación de Boda Digital - Daniel & Edna
 
-Este es un proyecto de invitación web premium diseñado para ser enviado de forma personalizada a los invitados de la boda de Daniel y Edna. La invitación es interactiva, responsiva y cuenta con un sistema de confirmación vía WhatsApp.
+Este es un proyecto de invitación web premium diseñado para la boda de Daniel y Edna. La aplicación es interactiva, responsiva y cuenta con un sistema de seguridad y personalización validado mediante **Firebase Firestore**.
 
 ## ✨ Características Principales
 
-- **Cuenta Regresiva:** Un contador dinámico con animación de corazones que flotan al ritmo de los segundos.
-- **Pases Personalizados:** El sistema detecta automáticamente quién es el invitado y cuántos pases tiene asignados mediante la URL.
-- **Reproductor de Música:** Botón flotante para activar/desactivar la canción oficial de la boda.
-- **Carrusel de Fotos:** Galería de imágenes automática para mostrar la sesión de fotos de los novios.
-- **RSVP Optimizado:** Formulario de confirmación que envía un mensaje estructurado directamente al WhatsApp de los novios.
+- **Seguridad con Firestore:** Los nombres y pases ya no se exponen ni se manipulan directamente en la URL; se validan contra la base de datos de Google.
+- **Cuenta Regresiva:** Contador dinámico con animación de partículas de corazones que se activan cada segundo.
+- **Reproductor de Música:** Control interactivo para la canción oficial ("Por Primera Vez").
+- **Carrusel de Fotos:** Galería automatizada con transiciones suaves para la sesión de fotos de los novios.
+- **RSVP con WhatsApp:** Formulario optimizado que envía una confirmación estructurada utilizando los datos oficiales de la base de datos.
 
-## 🔗 Uso de Parámetros en la URL (Personalización)
+## 🔗 Sistema de Personalización (Parámetro `q`)
 
-No necesitas crear una página para cada invitado. El sistema usa parámetros `GET` para personalizar el contenido:
+El sistema utiliza un único parámetro de consulta llamado `q` (*query*) para identificar al invitado de forma segura mediante su **Document ID** único de Firestore.
 
-### Parámetros:
-- `n`: Nombre del invitado (aparecerá después de "PARA:").
-- `p`: Cantidad de cupos o pases.
+### Cómo generar los links:
 
-### Ejemplos de links:
+1. Crea un documento en la colección `invitados` dentro de tu consola de Firebase.
+2. Copia el **Document ID** generado automáticamente (ej: `5Xy7zA9b2WqP`).
+3. Construye el enlace para el invitado añadiendo ese ID al final de la URL con `?q=`.
 
-**En Desarrollo (Local):**
-`http://127.0.0.1:5500/index.html?n=JUANITO%20Y%20FAMILIA&p=4`
+**Ejemplo de link final:**
+`https://danielcuellar1505.github.io/NuestraBodaDANIELyEDNA/?q=5Xy7zA9b2WqP`
 
-**En Producción (Web publicada):**
-`https://danielcuellar1505.github.io/NuestraBodaDANIELyEDNA/?n=DANIEL%20%20Y%20FLIA.&p=2`
-
-> **Importante:** Usa el símbolo `+` o `%20` para representar los espacios en el nombre.
+> **Nota de Seguridad:** Este método evita que invitados curiosos alteren el número de pases editando la URL, ya que la página solo renderiza información que existe y coincide en Firestore.
 
 ## 🛠️ Instrucciones para Desarrolladores
 
-### 1. Cambiar la fecha del evento
-En `script.js`, localiza la constante `weddingDate` y ajusta la fecha y hora:
+### 1. Configuración de Firebase
+Asegúrate de que en el archivo `index.html` (o en el script de inicialización) el objeto `firebaseConfig` contenga tus credenciales actuales:
 ```javascript
-const weddingDate = new Date("May 15, 2026 18:00:00").getTime();
+const firebaseConfig = {
+  apiKey: "AIzaSyBAFepaeW5eUnAHhOepQCtMr4XcKpDleSo",
+  authDomain: "bodadanieledna.firebaseapp.com",
+  projectId: "bodadanieledna",
+  storageBucket: "bodadanieledna.firebasestorage.app",
+  messagingSenderId: "14790684526",
+  appId: "1:14790684526:web:d739cd76f85d9155e25b7f",
+  measurementId: "G-3PZPSJG798"
+};
